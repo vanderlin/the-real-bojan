@@ -8,6 +8,7 @@
 
 #import "RealBojanViewController.h"
 #import "AppDelegate.h"
+
 @import SoundManager;
 @import SAMSoundEffect;
 
@@ -33,14 +34,35 @@ static const float POINT_COUNT = 100;
 	self.scoreLabel.text = @"";
 	self.scoreView.alpha = 0;
 	
-	// hide all the buttons
-	[self hideButtonsAnimated:NO];
+	ZLSwipeableView * swipeableView = [[ZLSwipeableView alloc] initWithFrame:CGRectZero];
+	self.swipeableView = swipeableView;
+	[self.view addSubview:self.swipeableView];
 	
+	// Required Data Source
+	self.swipeableView.dataSource = self;
+	
+	// Optional Delegate
+	self.swipeableView.delegate = self;
+	
+	self.swipeableView.translatesAutoresizingMaskIntoConstraints = NO;
+	NSDictionary *metrics = @{};
+	
+	[self.view addConstraints:[NSLayoutConstraint
+							   constraintsWithVisualFormat:@"|-50-[swipeableView]-50-|"
+							   options:0
+							   metrics:metrics
+							   views:NSDictionaryOfVariableBindings(swipeableView)]];
+	
+	[self.view addConstraints:[NSLayoutConstraint
+							   constraintsWithVisualFormat:@"V:|-120-[swipeableView]-100-|"
+							   options:0
+							   metrics:metrics
+							   views:NSDictionaryOfVariableBindings(swipeableView)]];
+	
+	self.swipeableView.swipingDeterminator = self;
+	self.swipeableView.allowedDirection = ZLSwipeableViewDirectionLeft | ZLSwipeableViewDirectionRight;
+	self.swipeableView.userInteractionEnabled = NO;
 	self.data = [NSMutableArray new];
-	
-	loadedCards = [[NSMutableArray alloc] init];
-	allCards = [[NSMutableArray alloc] init];
-	cardsLoadedIndex = 0;
 	
 	NSString *directory = [NSString stringWithFormat:@"Faces"];
 	NSArray * faceImages = [[NSBundle mainBundle] pathsForResourcesOfType:@"png" inDirectory:directory];
@@ -51,38 +73,28 @@ static const float POINT_COUNT = 100;
 			bojan.imageName = [NSString stringWithFormat:@"Faces/%@", [path lastPathComponent]];
 			bojan.isReal = [[[path lastPathComponent] lowercaseString] containsString:@"real"];
 			[self.data addObject:bojan];
-			NSLog(@"%@", bojan.imageName);
+			//NSLog(@"%@", bojan.imageName);
 		}
 	}
 	
 	self.timeSelectView.alpha = 1;
 	
-	//[[SAMSoundEffect playSoundEffectNamed:@"theme.m4a"] stop];
-	//[SAMSoundEffect playSoundEffectNamed:@"theme.m4a"];
+	// hide all the buttons
+	[self hideButtonsAnimated:NO];
 	[SoundManager sharedManager].allowsBackgroundMusic = YES;
+	[[SoundManager sharedManager] prepareToPlayWithSound:@"yes-sound.m4a"];
+	[[SoundManager sharedManager] prepareToPlayWithSound:@"bad-sound.m4a"];
+
 	[[SoundManager sharedManager] prepareToPlay];
-	
 	[[SoundManager sharedManager] playMusic:@"theme.m4a" looping:YES fadeIn:YES];
-	
-	/*NSString *path  = [[NSBundle mainBundle] pathForResource:@"theme" ofType:@"m4a"];
-	NSURL * pathURL = [NSURL fileURLWithPath : path];
-	
-	AudioServicesCreateSystemSoundID((__bridge CFURLRef) pathURL, &themeAudioID);
-	AudioServicesPlaySystemSound(themeAudioID);
-	// Using GCD, we can use a block to dispose of the audio effect without using a NSTimer or something else to figure out when it'll be finished playing.
-	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(30 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		AudioServicesDisposeSystemSoundID(themeAudioID);
-	});*/
+
 }
 
 #pragma mark - End of Game
 // -------------------------------------------------------
 -(void)showResults {
-	
-	
 	ResultsViewController * vc = [[ResultsViewController alloc] initWithNibName:@"ResultsViewController" bundle:nil];
 	[vc setGameResultsScore:score gameTime:gameSeconds];
-	
 	vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
 	[self.navigationController pushViewController:vc animated:YES];
 
@@ -91,15 +103,10 @@ static const float POINT_COUNT = 100;
 // -------------------------------------------------------
 -(void)endGame {
 	didEndGame = YES;
-	
-	//[[SoundManager sharedManager] stopSound:@"theme.m4a" fadeOut:YES];
+	self.swipeableView.userInteractionEnabled = NO;
+	[self.gameTimer stopTimer];
 	[[SoundManager sharedManager] stopMusic:YES];
-	
-	for (int i = 0; i<[loadedCards count]; i++) {
-		[[loadedCards objectAtIndex:i] removeFromSuperview];
-	}
-	[loadedCards removeAllObjects];
-	
+	[self.swipeableView discardAllViews];
 	[self hideButtonsAnimated:YES];
 	[self postScore:score forGameTime:gameSeconds didComplete:^{
 		[self showResults];
@@ -116,15 +123,10 @@ static const float POINT_COUNT = 100;
 	
 	[self hideButtonsAnimated:NO];
 	
-	loadedCards = [[NSMutableArray alloc] init];
-	allCards = [[NSMutableArray alloc] init];
-	cardsLoadedIndex = 0;
-	
 	self.timeSelectView.alpha = 1;
 	NSLog(@"reset game");
 	didEndGame = NO;
 	[[SoundManager sharedManager] playMusic:@"theme.m4a" looping:YES fadeIn:YES];
-
 }
 
 // -------------------------------------------------------
@@ -135,53 +137,18 @@ static const float POINT_COUNT = 100;
 	} completion:^(BOOL finished) {
 		self.scoreView.alpha = 1;
 		[self showButtonsAnimated:YES];
-		// start
-		self.gameTimer = [[GameTimer alloc] initWithLongInterval:seconds andShortInterval:1.0/30.0 andDelegate:self];
 		[self loadCards];
 	}];
 }
 
 // -------------------------------------------------------
 -(void)loadCards {
-	
-	NSInteger nData = [self.data count];
-	NSInteger numLoadedCardsCap = ((nData > MAX_BUFFER_SIZE) ? MAX_BUFFER_SIZE:nData);
+	self.swipeableView.userInteractionEnabled = YES;
 	[self.data shuffle];
-
-	// load all cards views
-	for (int i=0; i<nData; i++) {
-		Bojan * bojan = [self.data objectAtIndex:i];
-		DraggableView * v = [self createCardWithBojan:bojan];
-		[allCards addObject:v];
-		if (i < numLoadedCardsCap) {
-			[loadedCards addObject:v];
-		}
-	}
-	
-	for (int i = 0; i<[loadedCards count]; i++) {
-		if (i > 0) {
-			[self.view insertSubview:[loadedCards objectAtIndex:i] belowSubview:[loadedCards objectAtIndex:i-1]];
-		} else {
-			[self.view addSubview:[loadedCards objectAtIndex:i]];
-		}
-		cardsLoadedIndex++; //%%% we loaded a card into loaded cards, so we have to increment
-	}
-		
-	// start the timer
+	[self.swipeableView discardAllViews];
+	[self.swipeableView loadViewsIfNeeded];
+	self.gameTimer = [[GameTimer alloc] initWithLongInterval:gameSeconds andShortInterval:1.0/30.0 andDelegate:self];
 	[self.gameTimer startTimer];
-}
-// -------------------------------------------------------
--(DraggableView *)createCardWithBojan:(Bojan*)bojan {
-	float x = ([AppDelegate getInstance].window.frame.size.width - CARD_WIDTH)/2;
-	float y = ((self.view.frame.size.height - CARD_HEIGHT)/2) + 20;
-	float ran = 4;
-	x += [AppUtils random:-ran y:ran];
-	y += [AppUtils random:-ran y:ran];
-	
-	CGRect rect = CGRectMake(x, y, CARD_WIDTH, CARD_HEIGHT);
-	DraggableView * draggableView = [[DraggableView alloc] initWithFrame:rect withBojan:bojan];
-	draggableView.delegate = self;
-	return draggableView;
 }
 
 #pragma mark - Post Score
@@ -251,7 +218,6 @@ static const float POINT_COUNT = 100;
 	
 }
 
-
 // -------------------------------------------------------
 -(void)showButtonsAnimated:(BOOL)animated {
 	if(animated) {
@@ -311,93 +277,89 @@ static const float POINT_COUNT = 100;
 // real = right
 // -------------------------------------------------------
 -(IBAction)realButtonAction:(id)sender {
-	DraggableView *dragView = [loadedCards firstObject];
-	dragView.overlayView.mode = GGOverlayViewModeRight;
-	[UIView animateWithDuration:0.2 animations:^{
-		dragView.overlayView.alpha = 1;
-	}];
-	[dragView rightClickAction];
+	[self.swipeableView swipeTopViewToRight];
 }
 
 // fake = left
 -(IBAction)fakeButtonAction:(id)sender {
-	DraggableView *dragView = [loadedCards firstObject];
-	dragView.overlayView.mode = GGOverlayViewModeLeft;
-	[UIView animateWithDuration:0.2 animations:^{
-		dragView.overlayView.alpha = 1;
-	}];
-	[dragView leftClickAction];
+	[self.swipeableView swipeTopViewToLeft];
 }
 
+#pragma mark - Points
 // -------------------------------------------------------
 -(void)plusPoints {
 	score += POINT_COUNT;
+
+	//[[SoundManager sharedManager] playMusic:@"yes-sound.m4a" looping:NO];
 	[SAMSoundEffect playSoundEffectNamed:@"yes-sound.m4a"];
+	self.scoreLabel.text = [NSString stringWithFormat:@"%i", (int)score];
 }
 
 -(void)minusPoints {
 	score -= POINT_COUNT;
+	
+	//[[SoundManager sharedManager] playMusic:@"bad-sound.m4a" looping:NO];
 	[SAMSoundEffect playSoundEffectNamed:@"bad-sound.m4a"];
+	self.scoreLabel.text = [NSString stringWithFormat:@"%i", (int)score];
 }
 
-#warning include own action here!
-//%%% action called when the card goes to the left.
-// This should be customized with your own action
+#pragma mark - SwipeableView DataSource
 // -------------------------------------------------------
--(void)cardSwipedLeft:(UIView *)card; {
-	//do whatever you want with the card that was swiped
-	DraggableView *c = (DraggableView *)card;
-	if (c.bojan.isReal) {
-		[self minusPoints];
-	}
-	else {
-		[self plusPoints];
-	}
+- (UIView *)nextViewForSwipeableView:(ZLSwipeableView *)swipeableView {
+	Bojan * randomBojan = [self.data randomObject];
+	float x = (self.swipeableView.frame.size.width - CARD_WIDTH) / 2;
+	float y = (self.swipeableView.frame.size.height - CARD_HEIGHT) / 2;
 	
-	self.scoreLabel.text = [NSString stringWithFormat:@"%i", (int)score];
-	
-	[loadedCards removeObjectAtIndex:0]; //%%% card was swiped, so it's no longer a "loaded card"
-	
-	if (cardsLoadedIndex < [allCards count]) { //%%% if we haven't reached the end of all cards, put another into the loaded cards
-		[loadedCards addObject:[allCards objectAtIndex:cardsLoadedIndex]];
-		cardsLoadedIndex++;//%%% loaded a card, so have to increment count
-		[self.view insertSubview:[loadedCards objectAtIndex:(MAX_BUFFER_SIZE-1)] belowSubview:[loadedCards objectAtIndex:(MAX_BUFFER_SIZE-2)]];
-	}
-	else {
-		[self loadCards];
-	}
+	CGRect rect = CGRectMake(x, y, CARD_WIDTH, CARD_HEIGHT);
+	CardView * view = [[CardView alloc] initWithFrame:rect withBojan:randomBojan];
+	return view;
 }
 
-#warning include own action here!
-//%%% action called when the card goes to the right.
-// This should be customized with your own action
 // -------------------------------------------------------
--(void)cardSwipedRight:(UIView *)card {
-	//do whatever you want with the card that was swiped
-	DraggableView *c = (DraggableView *)card;
-	if (c.bojan.isReal) {
-		[self plusPoints];
+- (BOOL)shouldSwipeView:(UIView *)view movement:(ZLSwipeableViewMovement *)movement swipeableView:(ZLSwipeableView *)swipeableView {
+	return YES;
+}
+
+#pragma mark - SwipeableView Delegate
+// -------------------------------------------------------
+- (void)swipeableView:(ZLSwipeableView *)swipeableView didSwipeView:(UIView *)view inDirection:(ZLSwipeableViewDirection)direction {
+	NSLog(@"did swipe in direction: %zd", direction);
+	CardView * c = (CardView *)view;
+	
+	// fake = left
+	if (direction == ZLSwipeableViewDirectionLeft) {
+		if (c.bojan.isReal) {
+			[self minusPoints];
+		}
+		else {
+			[self plusPoints];
+		}
 	}
-	else {
-		[self minusPoints];
+	
+	// real = right
+	else if (direction == ZLSwipeableViewDirectionRight) {
+		if (c.bojan.isReal) {
+			[self plusPoints];
+		}
+		else {
+			[self minusPoints];
+		}
 	}
-	
-	self.scoreLabel.text = [NSString stringWithFormat:@"%i", (int)score];
-	
-	
-	[loadedCards removeObjectAtIndex:0]; //%%% card was swiped, so it's no longer a "loaded card"
-	
-	if (cardsLoadedIndex < [allCards count]) { //%%% if we haven't reached the end of all cards, put another into the loaded cards
-		[loadedCards addObject:[allCards objectAtIndex:cardsLoadedIndex]];
-		cardsLoadedIndex++;//%%% loaded a card, so have to increment count
-		[self.view insertSubview:[loadedCards objectAtIndex:(MAX_BUFFER_SIZE-1)] belowSubview:[loadedCards objectAtIndex:(MAX_BUFFER_SIZE-2)]];
-	} else {
-		[self loadCards];
-	}
+}
+- (void)swipeableView:(ZLSwipeableView *)swipeableView didCancelSwipe:(UIView *)view {
+	NSLog(@"did cancel swipe");
+}
+- (void)swipeableView:(ZLSwipeableView *)swipeableView didStartSwipingView:(UIView *)view atLocation:(CGPoint)location {
+	NSLog(@"did start swiping at location: x %f, y%f", location.x, location.y);
+}
+- (void)swipeableView:(ZLSwipeableView *)swipeableView swipingView:(UIView *)view atLocation:(CGPoint)location  translation:(CGPoint)translation {
+	NSLog(@"swiping at location: x %f, y %f, translation: x %f, y %f", location.x, location.y, translation.x, translation.y);
+}
+- (void)swipeableView:(ZLSwipeableView *)swipeableView didEndSwipingView:(UIView *)view atLocation:(CGPoint)location {
+	NSLog(@"did start swiping at location: x %f, y%f", location.x, location.y);
 }
 
 #pragma mark - Nav Controller Delegate
-
 // -------------------------------------------------------
 -(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
 	if(didEndGame && [viewController isKindOfClass:[RealBojanViewController class]]) {
@@ -410,7 +372,6 @@ static const float POINT_COUNT = 100;
 #pragma mark - Gamer Timers
 // -------------------------------------------------------
 -(void)longTimerExpired:(GameTimer *)gameTimer {
-	//Time is up
 	[self endGame];
 }
 
@@ -427,4 +388,15 @@ static const float POINT_COUNT = 100;
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Logout
+-(IBAction)logoutAction:(id)sender {
+	[self.gameTimer stopTimer];
+	[[SoundManager sharedManager] stopMusic:YES];
+	NSError *error;
+	[self.authUI signOutWithError:&error];
+	if (error) {
+		NSLog(@"%@", error.localizedDescription);
+	}
+	[self dismissViewControllerAnimated:YES completion:nil];
+}
 @end

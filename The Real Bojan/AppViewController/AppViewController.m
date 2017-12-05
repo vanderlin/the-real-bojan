@@ -8,44 +8,54 @@
 #import "AppDelegate.h"
 #import "AppUtils.h"
 
+@import FirebaseGoogleAuthUI;
+@import FirebaseFacebookAuthUI;
+
 @interface AppViewController()
 @end
 
 @implementation AppViewController
 
 //--------------------------------------------------------------
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
-	NSLog(@"view did load");
+-(void)viewDidLoad {
+	[super viewDidLoad];
 	
 	coverView = [[UIView alloc] initWithFrame:self.view.frame];
 	coverView.backgroundColor = [UIColor blackColor];
 	coverView.alpha = 0;
 	[self.view addSubview:coverView];
+	_authUI = [FUIAuth defaultAuthUI];
+	_authUI.delegate = self;
 	
-	if([FIRAuth auth].currentUser) {
-		NSLog(@"current user %@", [FIRAuth auth].currentUser);
-		_loginButton.alpha = 0;
-		_playButton.alpha = 1;
-	}
-	else {
-		_loginButton.alpha = 1;
-		_playButton.alpha = 0;
-	}
-	
-	
+	NSArray<id<FUIAuthProvider>> *providers = @[[[FUIGoogleAuth alloc] init], [[FUIFacebookAuth alloc] init]];
+	_authUI.providers = providers;
+	_authUI.signInWithEmailHidden = YES;
+
 	[[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth *_Nonnull auth, FIRUser *_Nullable user) {
 		if(user) {
-			[UIView animateWithDuration:1.2 animations:^{
-				self.playButton.alpha = 1;
-				[self openGame:nil];
-			}];
+			[self openGame:nil];
 			NSLog(@"auth user %@ %@", user.displayName, user.uid);
 		}
 		NSLog(@"auth state did change %@", user);
 	}];
 	
+}
+
+//--------------------------------------------------------------
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	NSLog(@"view did appear");
 	
+	
+	if([FIRAuth auth].currentUser) {
+		NSLog(@"current user %@", [FIRAuth auth].currentUser);
+		_signInButton.alpha = 0;
+		//_playButton.alpha = 1;
+	}
+	else {
+		_signInButton.alpha = 1;
+		//_playButton.alpha = 0;
+	}
 }
 
 //--------------------------------------------------------------
@@ -61,6 +71,7 @@
 	[coverView fadeToAlpha:1 speed:0.12 delay:0 onComplete:nil];
 	
 	RealBojanViewController * vc = [[RealBojanViewController alloc] initWithNibName:@"RealBojanViewController" bundle:nil];
+	vc.authUI = _authUI;
 	UINavigationController * nvc = [[UINavigationController alloc] initWithRootViewController:vc];
 	[nvc setNavigationBarHidden:YES];
 	
@@ -69,12 +80,34 @@
 }
 
 //--------------------------------------------------------------
--(IBAction)login:(id)sender {
-	NSLog(@"login");
-//	[GIDSignIn sharedInstance].delegate = self;
-	[GIDSignIn sharedInstance].uiDelegate = self;
-	[[GIDSignIn sharedInstance] signIn];
+-(void)didMoveToParentViewController:(UIViewController *)parent {
+	coverView.alpha = 0;
+	_signInButton.alpha = 1;
+}
+
+
+- (FUIAuthPickerViewController *)authPickerViewControllerForAuthUI:(FUIAuth *)authUI {
+	NSLog(@"auth view controller %@", authUI);
+	return [[AuthViewController alloc] initWithNibName:@"AuthViewController" bundle:nil authUI:authUI];
+}
+
+//--------------------------------------------------------------
+-(IBAction)signInAction:(id)sender {
+	NSLog(@"sign in");
+	UINavigationController * authViewController = [_authUI authViewController];
+	authViewController.view.backgroundColor = self.view.backgroundColor;
 	
+	[self presentViewController:authViewController animated:YES completion:nil];
+
+}
+
+//--------------------------------------------------------------
+-(void)authUI:(FUIAuth *)authUI didSignInWithUser:(FIRUser *)user error:(NSError *)error {
+	if(user) {
+		[self openGame:nil];
+		NSLog(@"auth user %@ %@", user.displayName, user.uid);
+	}
+	NSLog(@"auth state did change %@", user);
 }
 
 @end

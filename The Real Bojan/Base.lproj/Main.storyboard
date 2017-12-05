@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -32,25 +33,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8in-vx-QSr">
-                                <rect key="frame" x="57" y="356" width="261" height="84"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="sing-in-button-up.png"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b9H-sf-Wnd">
+                                <rect key="frame" x="57" y="341" width="261" height="84"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="sign-in.png"/>
                                 <connections>
-                                    <action selector="login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e86-1m-khe"/>
+                                    <action selector="signInAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Oxo-Ae-Ho1"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yqd-K5-ysM">
-                                <rect key="frame" x="57" y="482" width="261" height="84"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="play-button-up.png"/>
-                                <connections>
-                                    <action selector="openGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="u8X-MZ-Yco"/>
-                                </connections>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bojan-face.png" translatesAutoresizingMaskIntoConstraints="NO" id="29D-d9-HUo">
-                                <rect key="frame" x="106" y="88" width="163" height="173"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="29D-d9-HUo">
+                                <rect key="frame" x="51" y="39" width="272" height="282"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.1702474058" green="0.22059318419999999" blue="0.35334604980000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -58,18 +51,16 @@
                     </view>
                     <navigationItem key="navigationItem" id="WNu-6Y-iNZ"/>
                     <connections>
-                        <outlet property="loginButton" destination="8in-vx-QSr" id="Gew-9U-ES4"/>
-                        <outlet property="playButton" destination="yqd-K5-ysM" id="gdE-hG-0GH"/>
+                        <outlet property="signInButton" destination="b9H-sf-Wnd" id="K70-Nd-9xX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-866" y="143"/>
+            <point key="canvasLocation" x="-866.5" y="142.5"/>
         </scene>
     </scenes>
     <resources>
-        <image name="bojan-face.png" width="163" height="173"/>
-        <image name="play-button-up.png" width="261" height="84"/>
-        <image name="sing-in-button-up.png" width="261" height="84"/>
+        <image name="logo.png" width="375" height="390"/>
+        <image name="sign-in.png" width="261" height="84"/>
     </resources>
 </document>

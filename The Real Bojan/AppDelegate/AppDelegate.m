@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @interface AppDelegate ()
 
@@ -24,6 +25,8 @@
 	// Override point for customization after application launch.
 	// Use Firebase library to configure APIs
 	[FIRApp configure];
+	
+	[[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 	
 	[GIDSignIn sharedInstance].clientID = [FIRApp defaultApp].options.clientID;
 	[GIDSignIn sharedInstance].delegate = self;
@@ -66,10 +69,21 @@
 - (BOOL)application:(nonnull UIApplication *)application
 			openURL:(nonnull NSURL *)url
 			options:(nonnull NSDictionary<NSString *, id> *)options {
+	NSString *sourceApplication = options[UIApplicationOpenURLOptionsSourceApplicationKey];
+	return [[FUIAuth defaultAuthUI] handleOpenURL:url sourceApplication:sourceApplication];
 	
-	return [[GIDSignIn sharedInstance] handleURL:url
-							   sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
-									  annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
+	NSLog(@"sceme %@", [url scheme]);
+	if(3) {
+		return [[FBSDKApplicationDelegate sharedInstance] application:application
+															  openURL:url
+													sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+														   annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
+	}
+	if (4) {
+		return [[GIDSignIn sharedInstance] handleURL:url
+								   sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+										  annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
+	}
 }
 
 // -------------------------------------------------------

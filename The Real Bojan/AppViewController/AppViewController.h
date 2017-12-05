@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 @import Firebase;
 @import GoogleSignIn;
+@import FirebaseAuthUI;
+#import "AuthViewController.h"
 
-@interface AppViewController : UIViewController <GIDSignInUIDelegate> {
+@interface AppViewController : UIViewController <FUIAuthDelegate> {
 	UIView * coverView;
 }
 -(IBAction)openGame:(id)sender;
--(IBAction)login:(id)sender;
-@property(nonatomic, strong) IBOutlet UIButton * loginButton;
-@property(nonatomic, strong) IBOutlet UIButton * playButton;
+-(IBAction)signInAction:(id)sender;
+@property (nonatomic) FUIAuth * authUI;
+@property(nonatomic, strong) IBOutlet UIButton * signInButton;
 @end

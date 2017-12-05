@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 @import HockeySDK;
 @import Firebase;
+@import FirebaseAuthUI;
 @import GoogleSignIn;
 
 @interface AppDelegate : UIResponder<UIApplicationDelegate, GIDSignInDelegate>
