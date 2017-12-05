@@ -26,9 +26,17 @@
 				<string>com.googleusercontent.apps.376989721938-cbie7rr67osalrqnttt1lrileqg98r4l</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.376989721938-60akvei42rbuogjghrf9klf5o117lj6q</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

@@ -11,7 +11,7 @@
 @import GoogleSignIn;
 
 @interface AppViewController : UIViewController <GIDSignInUIDelegate> {
-	
+	UIView * coverView;
 }
 -(IBAction)openGame:(id)sender;
 -(IBAction)login:(id)sender;

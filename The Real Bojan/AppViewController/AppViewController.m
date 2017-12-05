@@ -4,7 +4,6 @@
 //
 
 #import "AppViewController.h"
-#import "CircleGameViewController.h"
 #import "RealBojanViewController.h"
 #import "AppDelegate.h"
 #import "AppUtils.h"
@@ -18,6 +17,11 @@
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 	NSLog(@"view did load");
+	
+	coverView = [[UIView alloc] initWithFrame:self.view.frame];
+	coverView.backgroundColor = [UIColor blackColor];
+	coverView.alpha = 0;
+	[self.view addSubview:coverView];
 	
 	if([FIRAuth auth].currentUser) {
 		NSLog(@"current user %@", [FIRAuth auth].currentUser);
@@ -34,7 +38,7 @@
 		if(user) {
 			[UIView animateWithDuration:1.2 animations:^{
 				self.playButton.alpha = 1;
-				//[self openGame:nil];
+				[self openGame:nil];
 			}];
 			NSLog(@"auth user %@ %@", user.displayName, user.uid);
 		}
@@ -54,11 +58,13 @@
 -(IBAction)openGame:(id)sender {
 	//GameViewController * vc = [[GameViewController alloc] init];
 	//CircleGameViewController * vc = [[CircleGameViewController alloc] init];
+	[coverView fadeToAlpha:1 speed:0.12 delay:0 onComplete:nil];
 	
 	RealBojanViewController * vc = [[RealBojanViewController alloc] initWithNibName:@"RealBojanViewController" bundle:nil];
 	UINavigationController * nvc = [[UINavigationController alloc] initWithRootViewController:vc];
 	[nvc setNavigationBarHidden:YES];
 	
+	//[self.navigationController pushViewController:nvc animated:YES];
 	[self presentViewController:nvc animated:YES completion:nil];
 }
 

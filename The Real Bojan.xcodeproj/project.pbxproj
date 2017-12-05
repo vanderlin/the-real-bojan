@@ -13,9 +13,6 @@
 		BA4A8F6A1FCDC47D0012415C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA4A8F691FCDC47D0012415C /* Assets.xcassets */; };
 		BA4A8F6D1FCDC47D0012415C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA4A8F6B1FCDC47D0012415C /* LaunchScreen.storyboard */; };
 		BA4A8F701FCDC47D0012415C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BA4A8F6F1FCDC47D0012415C /* main.m */; };
-		BA4A8F841FCDC58F0012415C /* CircleGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA4A8F781FCDC58F0012415C /* CircleGameViewController.m */; };
-		BA4A8F851FCDC58F0012415C /* CircleGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA4A8F791FCDC58F0012415C /* CircleGameViewController.xib */; };
-		BA4A8F861FCDC58F0012415C /* CircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA4A8F7B1FCDC58F0012415C /* CircleView.m */; };
 		BA4A8F871FCDC58F0012415C /* AppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BA4A8F7E1FCDC58F0012415C /* AppUtils.m */; };
 		BA4A8F881FCDC58F0012415C /* AppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA4A8F821FCDC58F0012415C /* AppViewController.m */; };
 		BA4A8F8C1FCDC71D0012415C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BA4A8F8B1FCDC71D0012415C /* GoogleService-Info.plist */; };
@@ -55,6 +52,9 @@
 		BA4A91851FD5B5640012415C /* yes-sound.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BA4A91841FD5B5640012415C /* yes-sound.m4a */; };
 		BA4A91871FD5B7980012415C /* bad-sound.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BA4A91861FD5B7970012415C /* bad-sound.m4a */; };
 		BA4A918B1FD5BB640012415C /* theme.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BA4A918A1FD5BB640012415C /* theme.m4a */; };
+		BA4A918F1FD5E4760012415C /* launch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA4A918C1FD5E4750012415C /* launch@2x.png */; };
+		BA4A91901FD5E4760012415C /* launch@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA4A918D1FD5E4750012415C /* launch@3x.png */; };
+		BA4A91911FD5E4760012415C /* launch.png in Resources */ = {isa = PBXBuildFile; fileRef = BA4A918E1FD5E4750012415C /* launch.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,11 +69,6 @@
 		BA4A8F6C1FCDC47D0012415C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BA4A8F6E1FCDC47D0012415C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA4A8F6F1FCDC47D0012415C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		BA4A8F771FCDC58F0012415C /* CircleGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleGameViewController.h; sourceTree = "<group>"; };
-		BA4A8F781FCDC58F0012415C /* CircleGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleGameViewController.m; sourceTree = "<group>"; };
-		BA4A8F791FCDC58F0012415C /* CircleGameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CircleGameViewController.xib; sourceTree = "<group>"; };
-		BA4A8F7A1FCDC58F0012415C /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
-		BA4A8F7B1FCDC58F0012415C /* CircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleView.m; sourceTree = "<group>"; };
 		BA4A8F7D1FCDC58F0012415C /* AppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUtils.h; sourceTree = "<group>"; };
 		BA4A8F7E1FCDC58F0012415C /* AppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUtils.m; sourceTree = "<group>"; };
 		BA4A8F7F1FCDC58F0012415C /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
@@ -121,6 +116,10 @@
 		BA4A91841FD5B5640012415C /* yes-sound.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "yes-sound.m4a"; sourceTree = "<group>"; };
 		BA4A91861FD5B7970012415C /* bad-sound.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "bad-sound.m4a"; sourceTree = "<group>"; };
 		BA4A918A1FD5BB640012415C /* theme.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = theme.m4a; sourceTree = "<group>"; };
+		BA4A918C1FD5E4750012415C /* launch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "launch@2x.png"; path = "Resources/launch@2x.png"; sourceTree = SOURCE_ROOT; };
+		BA4A918D1FD5E4750012415C /* launch@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "launch@3x.png"; path = "Resources/launch@3x.png"; sourceTree = SOURCE_ROOT; };
+		BA4A918E1FD5E4750012415C /* launch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = launch.png; path = Resources/launch.png; sourceTree = SOURCE_ROOT; };
+		BA4A91931FD626AC0012415C /* The Real Bojan.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "The Real Bojan.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,11 +175,11 @@
 		BA4A8F5F1FCDC47D0012415C /* The Real Bojan */ = {
 			isa = PBXGroup;
 			children = (
+				BA4A91931FD626AC0012415C /* The Real Bojan.entitlements */,
 				BA4A8FCD1FCE376B0012415C /* RealBojanViewController */,
 				BA4A8F8A1FCDC5940012415C /* AppDelegate */,
 				BA4A8F7C1FCDC58F0012415C /* AppUtils */,
 				BA4A8F801FCDC58F0012415C /* AppViewController */,
-				BA4A8F761FCDC58F0012415C /* GameViewController */,
 				BA4A8F661FCDC47D0012415C /* Main.storyboard */,
 				BA4A8F691FCDC47D0012415C /* Assets.xcassets */,
 				BA4A8F6B1FCDC47D0012415C /* LaunchScreen.storyboard */,
@@ -189,18 +188,6 @@
 				BA4A8F6F1FCDC47D0012415C /* main.m */,
 			);
 			path = "The Real Bojan";
-			sourceTree = "<group>";
-		};
-		BA4A8F761FCDC58F0012415C /* GameViewController */ = {
-			isa = PBXGroup;
-			children = (
-				BA4A8F771FCDC58F0012415C /* CircleGameViewController.h */,
-				BA4A8F781FCDC58F0012415C /* CircleGameViewController.m */,
-				BA4A8F791FCDC58F0012415C /* CircleGameViewController.xib */,
-				BA4A8F7A1FCDC58F0012415C /* CircleView.h */,
-				BA4A8F7B1FCDC58F0012415C /* CircleView.m */,
-			);
-			path = GameViewController;
 			sourceTree = "<group>";
 		};
 		BA4A8F7C1FCDC58F0012415C /* AppUtils */ = {
@@ -234,6 +221,9 @@
 		BA4A8F8D1FCDC9590012415C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BA4A918E1FD5E4750012415C /* launch.png */,
+				BA4A918C1FD5E4750012415C /* launch@2x.png */,
+				BA4A918D1FD5E4750012415C /* launch@3x.png */,
 				BA4A8F8E1FCDC9590012415C /* back-bottom.png */,
 				BA4A8F8F1FCDC9590012415C /* back-bottom@2x.png */,
 				BA4A8F901FCDC9590012415C /* back-bottom@3x.png */,
@@ -305,6 +295,7 @@
 				BA4A8F5B1FCDC47D0012415C /* Resources */,
 				DF6C7A0587EF70958C97F2CC /* [CP] Embed Pods Frameworks */,
 				74D0A11B96F61D9F403BFBA2 /* [CP] Copy Pods Resources */,
+				BA4A91921FD5E7380012415C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -327,6 +318,11 @@
 					BA4A8F5C1FCDC47D0012415C = {
 						CreatedOnToolsVersion = 9.0.1;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -353,18 +349,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA4A91911FD5E4760012415C /* launch.png in Resources */,
 				BA4A91821FD5AD2B0012415C /* Faces in Resources */,
 				BA4A8FAE1FCDC9590012415C /* back-top.png in Resources */,
 				BA4A8FC31FCDC9590012415C /* play-button-up@3x.png in Resources */,
 				BA4A8FB01FCDC9590012415C /* back-top@3x.png in Resources */,
 				BA4A8FD21FCE376B0012415C /* RealBojanViewController.xib in Resources */,
+				BA4A918F1FD5E4760012415C /* launch@2x.png in Resources */,
 				BA4A8FAF1FCDC9590012415C /* back-top@2x.png in Resources */,
 				BA4A8FBA1FCDC9590012415C /* button-bg.png in Resources */,
 				BA4A917F1FD1D2580012415C /* ResultsViewController.xib in Resources */,
 				BA4A8FB71FCDC9590012415C /* button-bg-up.png in Resources */,
 				BA4A8FB61FCDC9590012415C /* button-bg-down@3x.png in Resources */,
 				BA4A8FC51FCDC9590012415C /* sing-in-button-up@2x.png in Resources */,
-				BA4A8F851FCDC58F0012415C /* CircleGameViewController.xib in Resources */,
 				BA4A8FBB1FCDC9590012415C /* button-bg@2x.png in Resources */,
 				BA4A8FB31FCDC9590012415C /* bojan-face@3x.png in Resources */,
 				BA4A8FB11FCDC9590012415C /* bojan-face.png in Resources */,
@@ -382,6 +379,7 @@
 				BA4A8F681FCDC47D0012415C /* Main.storyboard in Resources */,
 				BA4A8FC11FCDC9590012415C /* play-button-up.png in Resources */,
 				BA4A8FC61FCDC9590012415C /* sing-in-button-up@3x.png in Resources */,
+				BA4A91901FD5E4760012415C /* launch@3x.png in Resources */,
 				BA4A8FC41FCDC9590012415C /* sing-in-button-up.png in Resources */,
 				BA4A8FB91FCDC9590012415C /* button-bg-up@3x.png in Resources */,
 				BA4A8FB41FCDC9590012415C /* button-bg-down.png in Resources */,
@@ -402,12 +400,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-The Real Bojan/Pods-The Real Bojan-resources.sh",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseFacebookAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseGoogleAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebasePhoneAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseTwitterAuthUI.bundle",
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseFacebookAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseGoogleAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebasePhoneAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseTwitterAuthUI.bundle,
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				$PODS_CONFIGURATION_BUILD_DIR/HockeySDK/HockeySDKResources.bundle,
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",
 			);
@@ -437,6 +436,19 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		BA4A91921FD5E7380012415C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FILE=\"${SRCROOT}/HockeySDK-iOS/BuildAgent\"\nif [ -f \"$FILE\" ]; then\n\"$FILE\"\nfi";
 		};
 		DF6C7A0587EF70958C97F2CC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -497,11 +509,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA4A8F841FCDC58F0012415C /* CircleGameViewController.m in Sources */,
 				BA4A8FD11FCE376B0012415C /* RealBojanViewController.m in Sources */,
 				BA4A8F871FCDC58F0012415C /* AppUtils.m in Sources */,
 				BA4A917E1FD1D2580012415C /* ResultsViewController.m in Sources */,
-				BA4A8F861FCDC58F0012415C /* CircleView.m in Sources */,
 				BA4A8F881FCDC58F0012415C /* AppViewController.m in Sources */,
 				BA4A8F701FCDC47D0012415C /* main.m in Sources */,
 				BA4A91711FCF4CE60012415C /* Bojan.m in Sources */,
@@ -562,9 +572,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 54HZN6M8HM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -582,7 +593,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -618,9 +629,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 54HZN6M8HM;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -632,7 +644,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -644,13 +656,17 @@
 			baseConfigurationReference = 1C9699454F7B6A17D5CA3F49 /* Pods-The Real Bojan.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "The Real Bojan/The Real Bojan.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 54HZN6M8HM;
 				INFOPLIST_FILE = "The Real Bojan/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.vanderlin.the-real-bojan";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -659,13 +675,17 @@
 			baseConfigurationReference = B85E0D19975A8EFFB17E8B56 /* Pods-The Real Bojan.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "The Real Bojan/The Real Bojan.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 54HZN6M8HM;
 				INFOPLIST_FILE = "The Real Bojan/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.vanderlin.the-real-bojan";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

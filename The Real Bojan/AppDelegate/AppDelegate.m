@@ -16,6 +16,11 @@
 
 // -------------------------------------------------------
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+	[[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"1bbf29be3c9e4161b52a70fe93db2703"];
+	// Do some additional configuration if needed here
+	[[BITHockeyManager sharedHockeyManager] startManager];
+	[[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
+
 	// Override point for customization after application launch.
 	// Use Firebase library to configure APIs
 	[FIRApp configure];

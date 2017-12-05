@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@import HockeySDK;
 @import Firebase;
 @import GoogleSignIn;
 

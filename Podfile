@@ -18,4 +18,5 @@ target 'The Real Bojan' do
 	pod 'SAMSoundEffect'
 	pod 'Game-Timer-iOS', '~> 1.0'
 	pod 'SoundManager'
+	pod 'HockeySDK', '~> 5.0.0'
 end

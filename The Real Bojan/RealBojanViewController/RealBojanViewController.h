@@ -17,13 +17,14 @@
 
 @import Firebase;
 
-@interface RealBojanViewController : UIViewController <DraggableViewDelegate, GameTimerDelegate> {
+@interface RealBojanViewController : UIViewController <DraggableViewDelegate, GameTimerDelegate, UINavigationControllerDelegate> {
 	NSInteger cardsLoadedIndex;
 	NSMutableArray * loadedCards;
 	NSMutableArray * allCards;
 	NSInteger score;
 	NSInteger gameSeconds;
 	SystemSoundID themeAudioID;
+	BOOL didEndGame;
 }
 @property (nonatomic, strong) FIRDatabaseReference * ref;
 @property (nonatomic, strong) GameTimer * gameTimer;

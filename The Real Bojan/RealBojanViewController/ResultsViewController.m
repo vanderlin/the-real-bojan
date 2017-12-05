@@ -87,7 +87,10 @@
 
 -(NSMutableArray*)dataForSectionIndex:(NSInteger)index {
 	NSString * sectionName = [sections.allKeys objectAtIndex:index];
-	return [sections objectForKey:sectionName];
+	NSMutableArray * data = [sections objectForKey:sectionName];
+	NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"score" ascending:NO];
+	[data sortUsingDescriptors:@[descriptor]];
+	return data;
 }
 
 // -------------------------------------------------------
@@ -102,9 +105,7 @@
 // -------------------------------------------------------
 -(IBAction)playAgainAction:(id)sender {
 	
-	[self dismissViewControllerAnimated:YES completion:^{
-		
-	}];
+	[self.navigationController popViewControllerAnimated:YES];
 }
 
 

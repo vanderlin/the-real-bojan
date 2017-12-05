@@ -8,6 +8,7 @@
 
 #import "RealBojanViewController.h"
 #import "AppDelegate.h"
+@import SoundManager;
 @import SAMSoundEffect;
 
 static const int MAX_BUFFER_SIZE = 2; //%%% max number of cards loaded at any given time, must be greater than 1
@@ -24,6 +25,8 @@ static const float POINT_COUNT = 100;
 // -------------------------------------------------------
 - (void)viewDidLoad {
     [super viewDidLoad];
+	didEndGame = NO;
+	self.navigationController.delegate = self;
 	
 	//for (NSString *familyName in [UIFont familyNames]) { for (NSString *fontName in [UIFont fontNamesForFamilyName:familyName]) { NSLog(@"%@", fontName); } }
 	score = 0;
@@ -54,8 +57,13 @@ static const float POINT_COUNT = 100;
 	
 	self.timeSelectView.alpha = 1;
 	
-	[[SAMSoundEffect playSoundEffectNamed:@"theme.m4a"] stop];
-	[SAMSoundEffect playSoundEffectNamed:@"theme.m4a"];
+	//[[SAMSoundEffect playSoundEffectNamed:@"theme.m4a"] stop];
+	//[SAMSoundEffect playSoundEffectNamed:@"theme.m4a"];
+	[SoundManager sharedManager].allowsBackgroundMusic = YES;
+	[[SoundManager sharedManager] prepareToPlay];
+	
+	[[SoundManager sharedManager] playMusic:@"theme.m4a" looping:YES fadeIn:YES];
+	
 	/*NSString *path  = [[NSBundle mainBundle] pathForResource:@"theme" ofType:@"m4a"];
 	NSURL * pathURL = [NSURL fileURLWithPath : path];
 	
@@ -82,7 +90,16 @@ static const float POINT_COUNT = 100;
 
 // -------------------------------------------------------
 -(void)endGame {
-
+	didEndGame = YES;
+	
+	//[[SoundManager sharedManager] stopSound:@"theme.m4a" fadeOut:YES];
+	[[SoundManager sharedManager] stopMusic:YES];
+	
+	for (int i = 0; i<[loadedCards count]; i++) {
+		[[loadedCards objectAtIndex:i] removeFromSuperview];
+	}
+	[loadedCards removeAllObjects];
+	
 	[self hideButtonsAnimated:YES];
 	[self postScore:score forGameTime:gameSeconds didComplete:^{
 		[self showResults];
@@ -99,13 +116,15 @@ static const float POINT_COUNT = 100;
 	
 	[self hideButtonsAnimated:NO];
 	
-	self.data = [NSMutableArray new];
 	loadedCards = [[NSMutableArray alloc] init];
 	allCards = [[NSMutableArray alloc] init];
 	cardsLoadedIndex = 0;
 	
 	self.timeSelectView.alpha = 1;
 	NSLog(@"reset game");
+	didEndGame = NO;
+	[[SoundManager sharedManager] playMusic:@"theme.m4a" looping:YES fadeIn:YES];
+
 }
 
 // -------------------------------------------------------
@@ -268,7 +287,7 @@ static const float POINT_COUNT = 100;
 	NSInteger seconds;
 	switch (tag) {
 		case 1:
-			seconds = 2;
+			seconds = 10;
 			break;
 		case 2:
 			seconds = 20;
@@ -328,7 +347,6 @@ static const float POINT_COUNT = 100;
 -(void)cardSwipedLeft:(UIView *)card; {
 	//do whatever you want with the card that was swiped
 	DraggableView *c = (DraggableView *)card;
-	
 	if (c.bojan.isReal) {
 		[self minusPoints];
 	}
@@ -375,6 +393,17 @@ static const float POINT_COUNT = 100;
 		[self.view insertSubview:[loadedCards objectAtIndex:(MAX_BUFFER_SIZE-1)] belowSubview:[loadedCards objectAtIndex:(MAX_BUFFER_SIZE-2)]];
 	} else {
 		[self loadCards];
+	}
+}
+
+#pragma mark - Nav Controller Delegate
+
+// -------------------------------------------------------
+-(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+	if(didEndGame && [viewController isKindOfClass:[RealBojanViewController class]]) {
+		NSLog(@"---- parent, %@", [viewController class]);
+		didEndGame = NO;
+		[self resetGameAction:nil];
 	}
 }
 
