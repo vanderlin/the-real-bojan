@@ -13,3 +13,4 @@ build/
 xcuserdata/
 
 Pods/
+*.scssc
