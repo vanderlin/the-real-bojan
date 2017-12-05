@@ -1,6 +1,6 @@
 # General
-name: App Name
-tagline: A great app to do something
+name: The Real Bojan
+tagline: Find the real bojans!
 
 # Jekyll
 exclude: ['Rakefile']
@@ -13,14 +13,14 @@ appstore_white: <a href="https://itunes.apple.com/app/id123456789" class="app-st
 
 # Screenshots
 screenshots:
-- screenshot01
-- screenshot02
+- screen-shot-1
+- screen-shot-2
 
 # Company Info
-company: Company Name
-company_website: http://companyname.com
+company: The Real Bojan
+company_website: https://vanderlin.github.io/the-real-bojan/
 
 # Emails
-email_press: press@appname.com
-email_contact: contact@appname.com
-email_support: support@appname.com
+email_press: real-bojan-app@gmail.com
+email_contact: real-bojan-app@gmail.com
+email_support: real-bojan-app@gmail.com

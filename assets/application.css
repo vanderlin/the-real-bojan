@@ -134,9 +134,9 @@ h4 {
   color: #999; }
 
 body > header {
-  background-color: #ff9500;
-  background-image: -webkit-linear-gradient(#ff9500, #ff5e3a);
-  background-image: linear-gradient(#ff9500, #ff5e3a);
+  background-color: #5B4C6B;
+  background-image: -webkit-linear-gradient(#5B4C6B, #1C1B29);
+  background-image: linear-gradient(#5B4C6B, #1C1B29);
   color: #fff;
   padding: 50px 0;
   margin-bottom: 50px; }
