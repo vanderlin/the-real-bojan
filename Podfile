@@ -23,4 +23,5 @@ target 'The Real Bojan' do
 	pod 'FBSDKCoreKit' 
 	pod 'FBSDKLoginKit'
 	pod 'FBSDKShareKit'
+	pod 'pop', '~> 1.0'
 end

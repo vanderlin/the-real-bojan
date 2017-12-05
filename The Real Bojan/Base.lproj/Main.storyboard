@@ -51,6 +51,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="WNu-6Y-iNZ"/>
                     <connections>
+                        <outlet property="logoView" destination="29D-d9-HUo" id="Rll-9I-Zxw"/>
                         <outlet property="signInButton" destination="b9H-sf-Wnd" id="K70-Nd-9xX"/>
                     </connections>
                 </viewController>

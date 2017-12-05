@@ -20,13 +20,17 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="k5A-du-3Ho">
-                    <rect key="frame" x="65" y="20" width="245" height="255"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="SIGN IN WITH ANY OF.png" translatesAutoresizingMaskIntoConstraints="NO" id="dMJ-GP-GgB">
+                    <rect key="frame" x="65" y="324" width="236" height="53"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="SIGN IN.png" translatesAutoresizingMaskIntoConstraints="NO" id="dMJ-GP-GgB">
-                    <rect key="frame" x="142" y="267" width="90" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="k5A-du-3Ho">
+                    <rect key="frame" x="65" y="61" width="245" height="255"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="signin-arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="1cA-kd-z1X">
+                    <rect key="frame" x="192" y="400" width="16" height="57"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="0.25513988729999998" green="0.19859401879999999" blue="0.27461710569999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -35,7 +39,8 @@
         </view>
     </objects>
     <resources>
-        <image name="SIGN IN.png" width="90" height="16"/>
+        <image name="SIGN IN WITH ANY OF.png" width="236" height="53"/>
         <image name="logo.png" width="375" height="390"/>
+        <image name="signin-arrow.png" width="16" height="57"/>
     </resources>
 </document>

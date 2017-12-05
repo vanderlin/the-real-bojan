@@ -8,6 +8,7 @@
 
 #import "ResultsViewController.h"
 #import "RealBojanViewController.h"
+@import pop;
 
 @interface ResultsViewController ()
 
@@ -22,7 +23,8 @@
 
 -(void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
+	POPLayerSetScaleXY(self.scoreLabel.layer, CGPointZero);
+
 	NSLog(@"set game results");
 	
 	self.scoreLabel.text = [NSString stringWithFormat:@"%i", self.score];
@@ -54,6 +56,18 @@
 		}
 		[self.tableView reloadData];
 	}];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	
+	POPSpringAnimation *anmB = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+	anmB.fromValue = [NSValue valueWithCGPoint:CGPointMake(0.0, 0.0)];
+	anmB.toValue = [NSValue valueWithCGPoint:CGPointMake(1.0, 1.0)];
+	anmB.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
+	anmB.springBounciness = 20;
+	[self.scoreLabel pop_addAnimation:anmB forKey:@"springAnimation"];
+	
 }
 
 - (void)didReceiveMemoryWarning {

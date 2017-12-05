@@ -124,6 +124,9 @@ static const float POINT_COUNT = 100;
 	[self hideButtonsAnimated:NO];
 	
 	self.timeSelectView.alpha = 1;
+	
+	
+	
 	NSLog(@"reset game");
 	didEndGame = NO;
 	[[SoundManager sharedManager] playMusic:@"theme.m4a" looping:YES fadeIn:YES];
@@ -225,6 +228,22 @@ static const float POINT_COUNT = 100;
 			self.realButton.alpha = 1;
 			self.fakeButton.alpha = 1;
 		}];
+		
+		POPSpringAnimation *anmA = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+		anmA.fromValue = [NSValue valueWithCGPoint:CGPointMake(0.0, 0.0)];
+		anmA.toValue = [NSValue valueWithCGPoint:CGPointMake(1.0, 1.0)];
+		anmA.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
+		anmA.springBounciness = 20.f;
+		[self.realButton pop_addAnimation:anmA forKey:@"springAnimation"];
+		
+		
+		POPSpringAnimation *anmB = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+		anmB.fromValue = [NSValue valueWithCGPoint:CGPointMake(0.0, 0.0)];
+		anmB.toValue = [NSValue valueWithCGPoint:CGPointMake(1.0, 1.0)];
+		anmB.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
+		anmB.springBounciness = 20.f;
+		[self.fakeButton pop_addAnimation:anmB forKey:@"springAnimation"];
+		
 	}
 	else {
 		self.realButton.alpha = 1;
@@ -289,7 +308,14 @@ static const float POINT_COUNT = 100;
 // -------------------------------------------------------
 -(void)plusPoints {
 	score += POINT_COUNT;
-
+	
+	POPSpringAnimation *anmB = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+	anmB.fromValue = [NSValue valueWithCGPoint:CGPointMake(0.9, 0.9)];
+	anmB.toValue = [NSValue valueWithCGPoint:CGPointMake(1.0, 1.0)];
+	anmB.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
+	anmB.springBounciness = 15;
+	[self.scoreLabel pop_addAnimation:anmB forKey:@"springAnimation"];
+	
 	//[[SoundManager sharedManager] playMusic:@"yes-sound.m4a" looping:NO];
 	[SAMSoundEffect playSoundEffectNamed:@"yes-sound.m4a"];
 	self.scoreLabel.text = [NSString stringWithFormat:@"%i", (int)score];

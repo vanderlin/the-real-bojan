@@ -13,6 +13,7 @@
 #import "GameTimer.h"
 #import "ResultsViewController.h"
 #import <AudioToolbox/AudioServices.h>
+@import pop;
 @import Firebase;
 @import FirebaseAuthUI;
 @import ZLSwipeableView;

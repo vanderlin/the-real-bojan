@@ -39,6 +39,16 @@
 		NSLog(@"auth state did change %@", user);
 	}];
 	
+	
+	POPLayerSetScaleXY(self.logoView.layer, CGPointZero);
+	POPLayerSetScaleXY(self.signInButton.layer, CGPointZero);
+}
+
+//--------------------------------------------------------------
+-(void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	POPLayerSetScaleXY(self.logoView.layer, CGPointZero);
+	POPLayerSetScaleXY(self.signInButton.layer, CGPointZero);
 }
 
 //--------------------------------------------------------------
@@ -46,6 +56,23 @@
 	[super viewDidAppear:animated];
 	NSLog(@"view did appear");
 	
+	POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+	sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(0.0, 0.0)];
+	sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(1.0, 1.0)];
+	sprintAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
+	sprintAnimation.springBounciness = 20.f;
+	[self.logoView pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
+	
+	[self performBlock:^{
+		
+		POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+		sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(0.0, 0.0)];
+		sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(1.0, 1.0)];
+		sprintAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
+		sprintAnimation.springBounciness = 20.f;
+		[self.signInButton pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
+		
+	} afterDelay:0.5];
 	
 	if([FIRAuth auth].currentUser) {
 		NSLog(@"current user %@", [FIRAuth auth].currentUser);
@@ -85,7 +112,7 @@
 	_signInButton.alpha = 1;
 }
 
-
+//--------------------------------------------------------------
 - (FUIAuthPickerViewController *)authPickerViewControllerForAuthUI:(FUIAuth *)authUI {
 	NSLog(@"auth view controller %@", authUI);
 	return [[AuthViewController alloc] initWithNibName:@"AuthViewController" bundle:nil authUI:authUI];
