@@ -7,3 +7,4 @@
 
 #pragma once
 #define isIPad ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
+#define USE_SOUND_FX

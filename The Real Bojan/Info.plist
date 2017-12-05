@@ -19,11 +19,9 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.376989721938-cbie7rr67osalrqnttt1lrileqg98r4l</string>
+				<string>fb196740820892967</string>
 			</array>
 		</dict>
 		<dict>
@@ -31,12 +29,23 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.376989721938-60akvei42rbuogjghrf9klf5o117lj6q</string>
+				<string>com.googleusercontent.apps.376989721938-cbie7rr67osalrqnttt1lrileqg98r4l</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>3</string>
+	<key>FacebookAppID</key>
+	<string>196740820892967</string>
+	<key>FacebookDisplayName</key>
+	<string>The Real Bojan</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

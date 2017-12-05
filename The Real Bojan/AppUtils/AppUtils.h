@@ -23,6 +23,23 @@
 + (UIColor*)randomColor;
 @end
 
+#pragma mark --- NSObject ---
+@interface NSObject (NSObjectExtensions)
+- (void)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay;
+@end
+@implementation NSObject (NSObjectExtensions)
+- (void)performBlock:(void (^)())block
+{
+	block();
+}
+
+- (void)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay
+{
+	void (^block_)() = [block copy]; // autorelease this if you're not using ARC
+	[self performSelector:@selector(performBlock:) withObject:block_ afterDelay:delay];
+}
+@end
+
 #pragma mark - NSMutableArray
 //--------------------------------------------------------------
 // NSMutableArray Extensions

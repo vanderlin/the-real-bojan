@@ -7,27 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DraggableView.h"
 #import "Bojan.h"
+#import "CardView.h"
 #import "AppUtils.h"
 #import "GameTimer.h"
 #import "ResultsViewController.h"
 #import <AudioToolbox/AudioServices.h>
-
-
+@import pop;
 @import Firebase;
+@import FirebaseAuthUI;
+@import ZLSwipeableView;
 
-@interface RealBojanViewController : UIViewController <DraggableViewDelegate, GameTimerDelegate, UINavigationControllerDelegate> {
-	NSInteger cardsLoadedIndex;
-	NSMutableArray * loadedCards;
-	NSMutableArray * allCards;
+
+@interface RealBojanViewController : UIViewController <ZLSwipeableViewDataSource, ZLSwipeableViewDelegate, ZLSwipeableViewSwipingDeterminator, GameTimerDelegate, UINavigationControllerDelegate> {
 	NSInteger score;
 	NSInteger gameSeconds;
-	SystemSoundID themeAudioID;
 	BOOL didEndGame;
 }
+@property (nonatomic, strong) ZLSwipeableView * swipeableView;
 @property (nonatomic, strong) FIRDatabaseReference * ref;
-@property (nonatomic, strong) GameTimer * gameTimer;
+@property (nonatomic, retain) GameTimer * gameTimer;
 @property (nonatomic, retain) NSMutableArray * data;
 @property (nonatomic, retain) IBOutlet UILabel * scoreLabel;
 @property (nonatomic, retain) IBOutlet UILabel * timerLabel;
@@ -35,7 +34,9 @@
 @property (nonatomic, retain) IBOutlet UIView * timeSelectView;
 @property (nonatomic, retain) IBOutlet UIButton * realButton;
 @property (nonatomic, retain) IBOutlet UIButton * fakeButton;
+@property (nonatomic, retain) FUIAuth * authUI;
 
+-(IBAction)logoutAction:(id)sender;
 -(IBAction)realButtonAction:(id)sender;
 -(IBAction)fakeButtonAction:(id)sender;
 

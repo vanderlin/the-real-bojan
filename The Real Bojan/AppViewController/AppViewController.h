@@ -7,14 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AuthViewController.h"
+#import "AppUtils.h"
+@import pop;
 @import Firebase;
 @import GoogleSignIn;
+@import FirebaseAuthUI;
 
-@interface AppViewController : UIViewController <GIDSignInUIDelegate> {
+@interface AppViewController : UIViewController <FUIAuthDelegate> {
 	UIView * coverView;
 }
 -(IBAction)openGame:(id)sender;
--(IBAction)login:(id)sender;
-@property(nonatomic, strong) IBOutlet UIButton * loginButton;
-@property(nonatomic, strong) IBOutlet UIButton * playButton;
+-(IBAction)signInAction:(id)sender;
+
+@property (nonatomic) FUIAuth * authUI;
+@property (nonatomic, strong) IBOutlet UIImageView * logoView;
+@property(nonatomic, strong) IBOutlet UIButton * signInButton;
 @end

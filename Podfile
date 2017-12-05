@@ -19,4 +19,9 @@ target 'The Real Bojan' do
 	pod 'Game-Timer-iOS', '~> 1.0'
 	pod 'SoundManager'
 	pod 'HockeySDK', '~> 5.0.0'
+	pod 'ZLSwipeableView'
+	pod 'FBSDKCoreKit' 
+	pod 'FBSDKLoginKit'
+	pod 'FBSDKShareKit'
+	pod 'pop', '~> 1.0'
 end
