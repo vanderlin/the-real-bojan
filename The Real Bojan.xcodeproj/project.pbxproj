@@ -296,9 +296,7 @@
 			children = (
 				BA4A8F811FCDC58F0012415C /* AppViewController.h */,
 				BA4A8F821FCDC58F0012415C /* AppViewController.m */,
-				BA4643801FD736FD00591352 /* AuthViewController.h */,
-				BA4643811FD736FD00591352 /* AuthViewController.m */,
-				BA4643821FD736FD00591352 /* AuthViewController.xib */,
+				BAD083BA1FD868510032513A /* AuthViewController */,
 			);
 			path = AppViewController;
 			sourceTree = "<group>";
@@ -315,16 +313,11 @@
 		BA4A8FCD1FCE376B0012415C /* RealBojanViewController */ = {
 			isa = PBXGroup;
 			children = (
-				BA4A916F1FCF4CE60012415C /* Bojan.h */,
-				BA4A91701FCF4CE60012415C /* Bojan.m */,
-				BA4A91941FD708930012415C /* CardView.h */,
-				BA4A91951FD708930012415C /* CardView.m */,
+				BAD083BB1FD868790032513A /* Cards */,
 				BA4A8FCE1FCE376B0012415C /* RealBojanViewController.h */,
 				BA4A8FCF1FCE376B0012415C /* RealBojanViewController.m */,
 				BA4A8FD01FCE376B0012415C /* RealBojanViewController.xib */,
-				BA4A917B1FD1D2580012415C /* ResultsViewController.h */,
-				BA4A917C1FD1D2580012415C /* ResultsViewController.m */,
-				BA4A917D1FD1D2580012415C /* ResultsViewController.xib */,
+				BAD083BC1FD868800032513A /* Results */,
 			);
 			path = RealBojanViewController;
 			sourceTree = "<group>";
@@ -337,6 +330,37 @@
 				BA4A91861FD5B7970012415C /* bad-sound.m4a */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		BAD083BA1FD868510032513A /* AuthViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BA4643801FD736FD00591352 /* AuthViewController.h */,
+				BA4643811FD736FD00591352 /* AuthViewController.m */,
+				BA4643821FD736FD00591352 /* AuthViewController.xib */,
+			);
+			path = AuthViewController;
+			sourceTree = "<group>";
+		};
+		BAD083BB1FD868790032513A /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				BA4A916F1FCF4CE60012415C /* Bojan.h */,
+				BA4A91701FCF4CE60012415C /* Bojan.m */,
+				BA4A91941FD708930012415C /* CardView.h */,
+				BA4A91951FD708930012415C /* CardView.m */,
+			);
+			path = Cards;
+			sourceTree = "<group>";
+		};
+		BAD083BC1FD868800032513A /* Results */ = {
+			isa = PBXGroup;
+			children = (
+				BA4A917B1FD1D2580012415C /* ResultsViewController.h */,
+				BA4A917C1FD1D2580012415C /* ResultsViewController.m */,
+				BA4A917D1FD1D2580012415C /* ResultsViewController.xib */,
+			);
+			path = Results;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

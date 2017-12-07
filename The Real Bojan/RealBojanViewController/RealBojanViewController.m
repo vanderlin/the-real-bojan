@@ -26,10 +26,22 @@ static const float POINT_COUNT = 100;
 // -------------------------------------------------------
 - (void)viewDidLoad {
     [super viewDidLoad];
-	didEndGame = NO;
+	
+	// listen to navigation controller delegate
 	self.navigationController.delegate = self;
 	
-	//for (NSString *familyName in [UIFont familyNames]) { for (NSString *fontName in [UIFont fontNamesForFamilyName:familyName]) { NSLog(@"%@", fontName); } }
+	_authUI = [FUIAuth defaultAuthUI];
+	_authUI.delegate = self;
+	
+	// listen for a authstate change
+	[[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth *_Nonnull auth, FIRUser *_Nullable user) {
+		[self updateAuthButtonsWithUser:user];
+		NSLog(@"auth state did change %@", user);
+	}];
+
+	
+	// setup
+	didEndGame = NO;
 	score = 0;
 	self.scoreLabel.text = @"";
 	self.scoreView.alpha = 0;
@@ -90,6 +102,17 @@ static const float POINT_COUNT = 100;
 
 }
 
+// -------------------------------------------------------
+-(void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	if([FIRAuth auth].currentUser) {
+		[self.authButton setTitle:@"Sign out" forState:UIControlStateNormal];
+	}
+	else {
+		[self.authButton setTitle:@"Sign in" forState:UIControlStateNormal];
+	}
+}
+
 #pragma mark - End of Game
 // -------------------------------------------------------
 -(void)showResults {
@@ -97,7 +120,6 @@ static const float POINT_COUNT = 100;
 	[vc setGameResultsScore:score gameTime:gameSeconds];
 	vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
 	[self.navigationController pushViewController:vc animated:YES];
-
 }
 
 // -------------------------------------------------------
@@ -108,10 +130,14 @@ static const float POINT_COUNT = 100;
 	[[SoundManager sharedManager] stopMusic:YES];
 	[self.swipeableView discardAllViews];
 	[self hideButtonsAnimated:YES];
-	[self postScore:score forGameTime:gameSeconds didComplete:^{
-		[self showResults];
-	}];
-
+	if([FIRAuth auth].currentUser) {
+		[self postScore:score forGameTime:gameSeconds didComplete:^{
+			[self showResults];
+		}];
+	}
+	else {
+		[self resetGameAction:nil];
+	}
 }
 
 #pragma mark - Start Game
@@ -124,8 +150,6 @@ static const float POINT_COUNT = 100;
 	[self hideButtonsAnimated:NO];
 	
 	self.timeSelectView.alpha = 1;
-	
-	
 	
 	NSLog(@"reset game");
 	didEndGame = NO;
@@ -372,6 +396,8 @@ static const float POINT_COUNT = 100;
 		}
 	}
 }
+
+// -------------------------------------------------------
 - (void)swipeableView:(ZLSwipeableView *)swipeableView didCancelSwipe:(UIView *)view {
 	NSLog(@"did cancel swipe");
 }
@@ -411,18 +437,62 @@ static const float POINT_COUNT = 100;
 // -------------------------------------------------------
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Logout
--(IBAction)logoutAction:(id)sender {
-	[self.gameTimer stopTimer];
-	[[SoundManager sharedManager] stopMusic:YES];
-	NSError *error;
-	[self.authUI signOutWithError:&error];
-	if (error) {
-		NSLog(@"%@", error.localizedDescription);
+#pragma mark - Auth
+//--------------------------------------------------------------
+-(void)updateAuthButtonsWithUser:(FIRUser*)user {
+	if(user) {
+		[self.authButton setTitle:@"Sign out" forState:UIControlStateNormal];
 	}
-	[self dismissViewControllerAnimated:YES completion:nil];
+	else {
+		[self.authButton setTitle:@"Sign in" forState:UIControlStateNormal];
+	}
+}
+
+//--------------------------------------------------------------
+-(void)authUI:(FUIAuth *)authUI didSignInWithUser:(FIRUser *)user error:(NSError *)error {
+	if(user) {
+		[self updateAuthButtonsWithUser:user];
+		NSLog(@"auth user %@ %@", user.displayName, user.uid);
+	}
+	NSLog(@"didSignInWithUser %@", user);
+}
+
+//--------------------------------------------------------------
+- (FUIAuthPickerViewController *)authPickerViewControllerForAuthUI:(FUIAuth *)authUI {
+	NSLog(@"auth view controller %@", authUI);
+	return [[AuthViewController alloc] initWithNibName:@"AuthViewController" bundle:nil authUI:authUI];
+}
+
+// -------------------------------------------------------
+-(BOOL)isAuth {
+	return [FIRAuth auth].currentUser != nil;
+}
+
+// -------------------------------------------------------
+-(IBAction)authAction:(id)sender {
+	
+	// sign out
+	if([self isAuth]) {
+		NSLog(@"sign out");
+		[self.gameTimer stopTimer];
+		[[SoundManager sharedManager] stopMusic:YES];
+		NSError *error;
+		[self.authUI signOutWithError:&error];
+		if (error) {
+			NSLog(@"%@", error.localizedDescription);
+		}
+		[self dismissViewControllerAnimated:YES completion:nil];
+	}
+	
+	// sign in
+	else {
+		NSLog(@"sign in");
+		UINavigationController * authViewController = [_authUI authViewController];
+		authViewController.view.backgroundColor = self.view.backgroundColor;
+		[self presentViewController:authViewController animated:YES completion:nil];
+	}
+	
 }
 @end

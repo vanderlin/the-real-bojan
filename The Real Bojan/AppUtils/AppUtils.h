@@ -7,6 +7,7 @@
 //
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+@import pop;
 
 #define ViewWidth (self.view.frame.size.width)
 #define ViewHeight (self.view.frame.size.height)
@@ -76,7 +77,7 @@
 -(void)translateX:(CGFloat)x;
 -(void)translateY:(CGFloat)y;
 -(void)centerInView:(UIView*)other;
-
+-(void)bounceInWithDelay:(CGFloat)delay didComplete:(BasicBlock)didComplete;
 -(CALayer*)getSublayerNamed:(NSString*)name;
 -(CGPoint) getTopRight;
 -(CGPoint) getTopLeft;
@@ -104,6 +105,19 @@
 -(void)translateTo:(CGPoint)position speed:(CGFloat)speed delay:(CGFloat)delay onComplete:(BasicBlock)completeBlock;
 @end
 @implementation UIView (UIViewExtension)
+-(void)bounceInWithDelay:(CGFloat)delay didComplete:(BasicBlock)didComplete {
+	[self performBlock:^{
+		POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+		sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(0.0, 0.0)];
+		sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(1.0, 1.0)];
+		sprintAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
+		sprintAnimation.springBounciness = 20.f;
+		[self pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
+		if(didComplete) {
+			didComplete();
+		}
+	} afterDelay:delay];
+}
 -(void)fadeToAlpha:(CGFloat)alpha speed:(CGFloat)speed delay:(CGFloat)delay onComplete:(BasicBlock)completeBlock {
 	[UIView animateWithDuration:speed delay:delay options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseOut animations:^{
 		self.alpha = alpha;

@@ -19,8 +19,10 @@
 }
 -(IBAction)openGame:(id)sender;
 -(IBAction)signInAction:(id)sender;
-
+-(IBAction)logoutAction:(id)sender;
 @property (nonatomic) FUIAuth * authUI;
 @property (nonatomic, strong) IBOutlet UIImageView * logoView;
 @property(nonatomic, strong) IBOutlet UIButton * signInButton;
+@property(nonatomic, strong) IBOutlet UIButton * playButton;
+@property(nonatomic, strong) IBOutlet UIButton * logoutButton;
 @end

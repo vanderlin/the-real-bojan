@@ -10,5 +10,5 @@
 @import FirebaseAuthUI;
 
 @interface AuthViewController : FUIAuthPickerViewController
-
+-(IBAction)closeAction:(id)sender;
 @end

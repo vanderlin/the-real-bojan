@@ -12,14 +12,14 @@
 #import "AppUtils.h"
 #import "GameTimer.h"
 #import "ResultsViewController.h"
+#import "AuthViewController.h"
 #import <AudioToolbox/AudioServices.h>
 @import pop;
 @import Firebase;
 @import FirebaseAuthUI;
 @import ZLSwipeableView;
 
-
-@interface RealBojanViewController : UIViewController <ZLSwipeableViewDataSource, ZLSwipeableViewDelegate, ZLSwipeableViewSwipingDeterminator, GameTimerDelegate, UINavigationControllerDelegate> {
+@interface RealBojanViewController : UIViewController <FUIAuthDelegate, ZLSwipeableViewDataSource, ZLSwipeableViewDelegate, ZLSwipeableViewSwipingDeterminator, GameTimerDelegate, UINavigationControllerDelegate> {
 	NSInteger score;
 	NSInteger gameSeconds;
 	BOOL didEndGame;
@@ -34,9 +34,10 @@
 @property (nonatomic, retain) IBOutlet UIView * timeSelectView;
 @property (nonatomic, retain) IBOutlet UIButton * realButton;
 @property (nonatomic, retain) IBOutlet UIButton * fakeButton;
+@property (nonatomic, retain) IBOutlet UIButton * authButton;
 @property (nonatomic, retain) FUIAuth * authUI;
 
--(IBAction)logoutAction:(id)sender;
+-(IBAction)authAction:(id)sender;
 -(IBAction)realButtonAction:(id)sender;
 -(IBAction)fakeButtonAction:(id)sender;
 

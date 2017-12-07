@@ -20,6 +20,9 @@
 -(void)viewDidLoad {
 	[super viewDidLoad];
 	
+	
+	_logoutButton.alpha = 0;
+	
 	coverView = [[UIView alloc] initWithFrame:self.view.frame];
 	coverView.backgroundColor = [UIColor blackColor];
 	coverView.alpha = 0;
@@ -31,17 +34,16 @@
 	_authUI.providers = providers;
 	_authUI.signInWithEmailHidden = YES;
 
+	
 	[[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth *_Nonnull auth, FIRUser *_Nullable user) {
-		if(user) {
-			[self openGame:nil];
-			NSLog(@"auth user %@ %@", user.displayName, user.uid);
-		}
+		[self updateAuthButtonsWithUser:user];
 		NSLog(@"auth state did change %@", user);
 	}];
 	
 	
 	POPLayerSetScaleXY(self.logoView.layer, CGPointZero);
 	POPLayerSetScaleXY(self.signInButton.layer, CGPointZero);
+	POPLayerSetScaleXY(self.playButton.layer, CGPointZero);
 }
 
 //--------------------------------------------------------------
@@ -49,6 +51,7 @@
 	[super viewWillAppear:animated];
 	POPLayerSetScaleXY(self.logoView.layer, CGPointZero);
 	POPLayerSetScaleXY(self.signInButton.layer, CGPointZero);
+	POPLayerSetScaleXY(self.playButton.layer, CGPointZero);
 }
 
 //--------------------------------------------------------------
@@ -56,28 +59,13 @@
 	[super viewDidAppear:animated];
 	NSLog(@"view did appear");
 	
-	POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
-	sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(0.0, 0.0)];
-	sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(1.0, 1.0)];
-	sprintAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
-	sprintAnimation.springBounciness = 20.f;
-	[self.logoView pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
-	
-	[self performBlock:^{
-		
-		POPSpringAnimation *sprintAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
-		sprintAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(0.0, 0.0)];
-		sprintAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(1.0, 1.0)];
-		sprintAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(2, 2)];
-		sprintAnimation.springBounciness = 20.f;
-		[self.signInButton pop_addAnimation:sprintAnimation forKey:@"springAnimation"];
-		
-	} afterDelay:0.5];
+	[self.logoView bounceInWithDelay:0 didComplete:nil];
+	[self.signInButton bounceInWithDelay:0.2 didComplete:nil];
+	[self.playButton bounceInWithDelay:0.5 didComplete:nil];
 	
 	if([FIRAuth auth].currentUser) {
 		NSLog(@"current user %@", [FIRAuth auth].currentUser);
 		_signInButton.alpha = 0;
-		//_playButton.alpha = 1;
 	}
 	else {
 		_signInButton.alpha = 1;
@@ -98,7 +86,6 @@
 	[coverView fadeToAlpha:1 speed:0.12 delay:0 onComplete:nil];
 	
 	RealBojanViewController * vc = [[RealBojanViewController alloc] initWithNibName:@"RealBojanViewController" bundle:nil];
-	vc.authUI = _authUI;
 	UINavigationController * nvc = [[UINavigationController alloc] initWithRootViewController:vc];
 	[nvc setNavigationBarHidden:YES];
 	
@@ -123,18 +110,38 @@
 	NSLog(@"sign in");
 	UINavigationController * authViewController = [_authUI authViewController];
 	authViewController.view.backgroundColor = self.view.backgroundColor;
-	
 	[self presentViewController:authViewController animated:YES completion:nil];
+}
 
+//--------------------------------------------------------------
+-(void)updateAuthButtonsWithUser:(FIRUser*)user {
+	if(user) {
+		[_signInButton fadeToAlpha:0 speed:0.2 delay:0 onComplete:^{
+			[_logoutButton fadeToAlpha:1 speed:0.2 delay:0 onComplete:nil];
+		}];
+	}
+	else {
+		[_logoutButton fadeToAlpha:0 speed:0.2 delay:0 onComplete:^{
+			[_signInButton fadeToAlpha:1 speed:0.2 delay:0 onComplete:nil];
+		}];
+	}
 }
 
 //--------------------------------------------------------------
 -(void)authUI:(FUIAuth *)authUI didSignInWithUser:(FIRUser *)user error:(NSError *)error {
 	if(user) {
-		[self openGame:nil];
+		[self updateAuthButtonsWithUser:user];
 		NSLog(@"auth user %@ %@", user.displayName, user.uid);
 	}
-	NSLog(@"auth state did change %@", user);
+	NSLog(@"didSignInWithUser %@", user);
 }
 
+//--------------------------------------------------------------
+-(IBAction)logoutAction:(id)sender {
+	NSError * error;
+	[self.authUI signOutWithError:&error];
+	if (error) {
+		NSLog(@"%@", error.localizedDescription);
+	}
+}
 @end
